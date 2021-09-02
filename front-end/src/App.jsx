@@ -9,6 +9,7 @@ import AddProduct from './screens/addProduct';
 import ViewProduct from './screens/viewProducts';
 import { getProducts } from './actions/products';
 import { useDispatch, useSelector } from 'react-redux';
+import Product from './screens/Product';
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,12 @@ function App() {
         </Route>
         <Route exact path="/view">
           <ViewProduct />
+        </Route>
+        <Route exact path="/cart">
+          <ViewProduct />
+        </Route>
+        <Route exact path="/product/:productId">
+          <Product/>
         </Route>
       </Switch>
     </Router>
