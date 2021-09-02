@@ -12,6 +12,8 @@ export const createProduct = async (req, res) => {
       { name: 'variantImg', maxCount: 10 },
     ]);
     await cpUpload(req, res, async function (err) {
+      const url = req.protocol + '://' + req.get('host');
+
       if (err instanceof multer.MulterError) {
         // A Multer error occurred when uploading.
         // res.statusCode = 400;
@@ -26,8 +28,14 @@ export const createProduct = async (req, res) => {
       const { title, description, seoTitle, seoDescription, variantDetails } =
         req.body;
 
-      const mediaFile = req.files.mediaFile[0].path;
-      const variantImg = req.files.variantImg.map((item) => item.path);
+      // console.log(req.files);
+
+      const mediaFile = url + '/uploads/' + req.files.mediaFile[0].filename;
+      // const mediaFile = url + '/uploads/' +req.files.mediaFile[0].path;
+      // const variantImg = url + '/uploads/' +req.files.variantImg.map((item) => item.path);
+      const variantImg = req.files.variantImg.map((item) => {
+        return `${url}/uploads/${item.filename}`;
+      });
 
       const newProduct = new Product({
         title: title,
@@ -41,6 +49,7 @@ export const createProduct = async (req, res) => {
       try {
         await newProduct.save();
         res.status(201).json({ success: true, data: newProduct });
+        // console.log(newProduct);
       } catch (err) {
         res.status(400).json({ success: false, message: err.message });
       }
@@ -55,6 +64,16 @@ export const createProduct = async (req, res) => {
 export const getProducts = async (req, res, next) => {
   try {
     const Products = await Product.find();
+    /* const products = Products.map((item) => {
+      let variantImg = item.variantImg.map(
+        (path) => `${req.headers.host}/${path}`
+      );
+      item.variantImg = variantImg;
+      item.mediaFile = `${req.headers.host}/${item.mediaFile}`;
+      return item;
+    }); */
+    // console.log(req.headers.host);
+    // res.status(202).json(products);
     res.status(202).json(Products);
   } catch (e) {
     console.log(e.message);

@@ -9,7 +9,7 @@ const productSchema = mongoose.Schema({
     type: String,
     trim: true,
   },
-  media: {
+  mediaFile: {
     type: String,
     trim: true,
   },
@@ -26,7 +26,7 @@ const productSchema = mongoose.Schema({
     type: String,
     trim: true,
   },
-  description: {
+  seoDescription: {
     type: String,
     trim: true,
   },

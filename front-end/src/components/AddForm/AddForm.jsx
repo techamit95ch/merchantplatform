@@ -139,8 +139,10 @@ const AddForm = ({
             placeholder="SEO Description"
             autoSize={{ minRows: 3, maxRows: 5 }}
             style={{ marginTop: 8 }}
-            onChange={setSeoDescription}
-            onChange={checkEmpty}
+            onChange={(e) => {
+              setSeoDescription(e.target.value);
+              checkEmpty();
+            }}
           />
         </Form.Item>
         <Form.Item>

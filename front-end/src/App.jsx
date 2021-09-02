@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM, {
   BrowserRouter as Router,
   Route,
@@ -7,7 +7,15 @@ import ReactDOM, {
 import HomeScreen from './screens/homeScreen';
 import AddProduct from './screens/addProduct';
 import ViewProduct from './screens/viewProducts';
+import { getProducts } from './actions/products';
+import { useDispatch, useSelector } from 'react-redux';
+
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
   return (
     <Router>
       <Switch>

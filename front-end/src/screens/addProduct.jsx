@@ -55,21 +55,21 @@ const AddProduct = () => {
     form_Data.append('seoTitle', seoTitle);
     form_Data.append('seoDescription', seoDescription);
     await dispatch(saveProduct(form_Data));
-    await console.log(product);
+    // await console.log(product);
 
-    await setTimeout(() => {
+    await setTimeout(async () => {
       if (product.success) {
-        setSpinning(2);
+        await setSpinning(2);
 
-        setTimeout(() => {
-          setSpinning(0);
-          history.push('/view');
+        await setTimeout(async () => {
+          await setSpinning(0);
+          await history.push('/view');
         }, 2500);
       } else {
-        setSpinning(3);
-        setTimeout(() => {
-          setSpinning(0);
-        }, 1500);
+        await setSpinning(3);
+        await setTimeout(async () => {
+          await setSpinning(0);
+        }, 2500);
       }
     }, 2000);
 

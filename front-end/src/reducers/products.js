@@ -5,8 +5,7 @@ export default (
 ) => {
   switch (action.type) {
     case 'FETCH_ALL':
-      products.data = action.payload.data;
-      products.success = action.payload.success;
+      products.data = action.payload;
       return products;
 
     case 'CREATE':
