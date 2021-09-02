@@ -26,13 +26,12 @@ import AvatarImage from './Media.jsx';
 import Variant from './Variant.jsx';
 import { Function } from '@babel/types';
 const { Option } = Select;
-type RequiredMark = boolean | 'optional';
 
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
 };
-function beforeUpload(file: any) {
+function beforeUpload(file) {
   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
   if (!isJpgOrPng) {
     message.error('You can only upload JPG/PNG file!');
@@ -43,27 +42,12 @@ function beforeUpload(file: any) {
   }
   return isJpgOrPng && isLt2M;
 }
-type Props = {
-  setTitle: any;
-  isEmpty: any;
-  checkEmpty: any;
-  setDescription: any;
-  description: any;
-  setMediaFile: any;
-  setVariant: any;
-  setSeoTitle: any;
-  setSeoDescription: any;
-  handleSubmit: any;
-  varCount: any;
-  setVarCount: any;
-};
 
-const AddForm: React.FC<Props> = ({
+const AddForm = ({
   setTitle,
   setDescription,
   description,
   setMediaFile,
-  setVariant,
   setSeoTitle,
   setSeoDescription,
   handleSubmit,
@@ -71,20 +55,21 @@ const AddForm: React.FC<Props> = ({
   isEmpty,
   varCount,
   setVarCount,
+  setVariantImg,
+  setVariantDetails,
+  variantImg,
+  variantDetails,
 }) => {
-  const [form] = Form.useForm();
-  const [requiredMark, setRequiredMarkType] = useState<RequiredMark>(true);
+  const [requiredMark, setRequiredMarkType] = useState(true);
 
   const [convertedText, setConvertedText] = useState('Some default content');
 
   return (
     <Card title="Add Product" bordered={false} style={{ width: 600 }}>
       <Form
-        form={form}
         layout="vertical"
-        autoComplete="off"
-        initialValues={{ requiredMarkValue: requiredMark }}
-        requiredMark={requiredMark}
+        onFieldsChange={checkEmpty}
+        onFinish={handleSubmit}
       >
         <Form.Item
           label="Product Title"
@@ -92,7 +77,7 @@ const AddForm: React.FC<Props> = ({
           tooltip="This is a required field"
         >
           <Input
-            placeholder="input placeholder"
+            placeholder="Product Title"
             onChange={(e) => {
               setTitle(e.target.value);
               checkEmpty();
@@ -127,9 +112,13 @@ const AddForm: React.FC<Props> = ({
           tooltip="This is a required field"
         >
           <Variant
-            setVariant={setVariant}
             varCount={varCount}
             setVarCount={setVarCount}
+            setVariantImg={setVariantImg}
+            setVariantDetails={setVariantDetails}
+            variantImg={variantImg}
+            variantDetails={variantDetails}
+            checkEmpty={checkEmpty}
           />
         </Form.Item>
 
@@ -138,12 +127,20 @@ const AddForm: React.FC<Props> = ({
           required
           tooltip="This is a required field"
         >
-          <Input placeholder="SEO Title" />
+          <Input
+            placeholder="SEO Title"
+            onChange={(e) => {
+              setSeoTitle(e.target.value);
+              checkEmpty();
+            }}
+          />
 
           <Input.TextArea
             placeholder="SEO Description"
             autoSize={{ minRows: 3, maxRows: 5 }}
             style={{ marginTop: 8 }}
+            onChange={setSeoDescription}
+            onChange={checkEmpty}
           />
         </Form.Item>
         <Form.Item>
@@ -151,7 +148,7 @@ const AddForm: React.FC<Props> = ({
             type="primary"
             icon={<CheckOutlined />}
             block
-            loading={isEmpty}
+            htmlType="submit"
           >
             Submit
           </Button>

@@ -15,14 +15,14 @@ export default function ({ setMediaFile, checkEmpty }) {
     previewTitle: '',
   });
   const onChange = (newFileList) => {
+    // checkEmpty();
     if (newFileList.file.status !== 'uploading') {
-      console.log(newFileList.file);
+      // console.log(newFileList.file);
     }
     if (newFileList.file.status === 'done') {
       message.success(`${newFileList.file.name} file uploaded successfully`);
+      setMediaFile(newFileList.file.originFileObj);
       setFileList(newFileList.file);
-      setMediaFile(newFileList.file);
-      checkEmpty();
     } else if (newFileList.file.status === 'error') {
       message.error(`${newFileList.file.name} file upload failed.`);
     }

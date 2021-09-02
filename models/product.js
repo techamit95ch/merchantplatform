@@ -1,7 +1,6 @@
-const mongoose = require('mongoose'); 
+import mongoose from 'mongoose';
 
-const productSchema = mongoose.Schema({  
-  
+const productSchema = mongoose.Schema({
   title: {
     type: String,
     trim: true,
@@ -14,17 +13,20 @@ const productSchema = mongoose.Schema({
     type: String,
     trim: true,
   },
-
-  variants:{
-      type: Array,
-      default:[]
+  variantDetails: {
+    type: Array,
+    default: [],
+  },
+  variantImg: {
+    type: Array,
+    default: [],
   },
 
-  seoMeta: {
+  seoTitle: {
     type: String,
     trim: true,
   },
-  seoDescription: {
+  description: {
     type: String,
     trim: true,
   },
@@ -35,6 +37,6 @@ const productSchema = mongoose.Schema({
   },
 });
 
-const product = mongoose.model("product", productSchema);
+const product = mongoose.model('product', productSchema);
 
-module.exports = product
+export default product;

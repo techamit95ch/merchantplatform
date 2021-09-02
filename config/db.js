@@ -1,9 +1,9 @@
-const dotenv = require('dotenv');
-const mongoose = require('mongoose');
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 dotenv.config();
 const { PORT, DEBUG_MODE, DB_URL } = process.env;
 
-module.exports = function (app) {
+export default function (app) {
   try {
     // console.log(DB_URL);
     mongoose
@@ -23,4 +23,4 @@ module.exports = function (app) {
     console.error(err.message);
   }
   // mongoose.connect({});
-};
+}

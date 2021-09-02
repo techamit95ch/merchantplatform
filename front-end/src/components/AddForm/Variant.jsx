@@ -19,7 +19,16 @@ import {
   InfoCircleOutlined,
 } from '@ant-design/icons';
 
-export default function ({ setVariant, varCount, setVarCount }) {
+export default function ({
+  varCount,
+  setVarCount,
+  setVariantImg,
+  setVariantDetails,
+  variantImg,
+  variantDetails,
+  checkEmpty,
+}) {
+  const [data, setData] = useState({ descripton: '', img: '' });
   return (
     <Form.List name="variants">
       {(fields, { add, remove }) => (
@@ -37,17 +46,17 @@ export default function ({ setVariant, varCount, setVarCount }) {
                 fieldKey={[fieldKey, 'first']}
                 rules={[{ required: true, message: 'Details Missing' }]}
               >
-                <Input placeholder="Variant Details" />
+                <Input
+                  placeholder="Variant Details"
+                  onChange={(e) => {
+                    let vari = variantDetails;
+                    vari[name] = e.target.value;
+                    setVariantDetails(vari);
+                    checkEmpty();
+                  }}
+                />
               </Form.Item>
-              <Form.Item
-                required
-                {...restField}
-                name={[name, 'last']}
-                fieldKey={[fieldKey, 'last']}
-                rules={[{ required: true, message: 'Image' }]}
-                // name: 'file',
-                maxCount={1}
-              >
+              <Form.Item required {...restField}>
                 <ImgCrop>
                   <Upload
                     name="logo"
@@ -71,13 +80,26 @@ export default function ({ setVariant, varCount, setVarCount }) {
                         ? true
                         : Upload.LIST_IGNORE;
                     }}
+                    onChange={(file) => {
+                      if (file.file.status === 'done') {
+                        let vari = variantImg;
+                        vari[name] = file.file.originFileObj;
+                        setVariantImg(vari);
+                        checkEmpty();
+                      }
+                    }}
                   >
                     <Button icon={<UploadOutlined />}>Click to upload</Button>
                   </Upload>
                 </ImgCrop>
               </Form.Item>
               <MinusCircleOutlined
-                onClick={() => remove(name)}
+                onClick={() => {
+                  remove(name);
+                  setVarCount(varCount - 1);
+                  variantImg.splice(name, 1);
+                  variantDetails.splice(name, 1);
+                }}
                 // spin={true}
                 style={{ color: '#B22222' }}
               />
@@ -88,7 +110,10 @@ export default function ({ setVariant, varCount, setVarCount }) {
               type="dashed"
               size="small"
               style={{ color: '#228B22' }}
-              onClick={() => add()}
+              onClick={() => {
+                // setVarCount(varCount + 1);
+                add();
+              }}
               icon={<PlusOutlined />}
             >
               Add field

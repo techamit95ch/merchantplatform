@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import ReactDOM, {
   BrowserRouter as Router,
   Route,
@@ -7,6 +6,7 @@ import ReactDOM, {
 } from 'react-router-dom';
 import HomeScreen from './screens/homeScreen';
 import AddProduct from './screens/addProduct';
+import ViewProduct from './screens/viewProducts';
 function App() {
   return (
     <Router>
@@ -15,7 +15,10 @@ function App() {
           <HomeScreen />
         </Route>
         <Route exact path="/add">
-          <AddProduct/>
+          <AddProduct />
+        </Route>
+        <Route exact path="/view">
+          <ViewProduct />
         </Route>
       </Switch>
     </Router>

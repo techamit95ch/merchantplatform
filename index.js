@@ -1,51 +1,42 @@
-const http = require('http');
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const helmet = require('helmet');
-const morgan = require('morgan');
-const app = express();
-const productRoutes = require('./routes/products');
-const productFiles = require('./routes/postFiles');
-const dbConfig = require('./config/db');
+import express from 'express';
+import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import productRoutes from './routes/products.js';
+import dbConfig from './config/db.js';
+import multer from 'multer';
 
-app.use(helmet());
-app.use(bodyParser.urlencoded({ extended: false }));
+// import upload from './middleware/upload.js';
+// import path from 'path';
+// import { fileURLToPath } from 'url';
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+
+const app = express();
+app.use(
+  bodyParser.urlencoded({
+    // to support URL-encoded bodies
+    extended: true,
+  })
+);
 app.use(bodyParser.json());
 app.use(cors());
-app.use(morgan('combined'));
+// app.listen(PORT);
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-  );
-  if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
-    return res.status(200).json({});
-  }
-  next();
-});
-app.use((req, res, next) => {
-  const errors = new Error('Not Found');
-  errors.status = 404;
-  next(errors);
-});
-app.use((errors, req, res, next) => {
-  res.status(errors.status || 500);
-  res.json({
-    error: {
-      message: errors.message,
-    },
-  });
+// if (process.env.NODE_ENV ==="production") {
+//   app.use(express.static("client/build/"))
+// }
+
+app.use((error, req, res, next) => {
+  const message = `This is unnessary error => ${error.field}`;
+  console.error(message);
+  return res.status(500).send(message);
 });
 
-// Products
+// app.use('/uploads', express.static(__dirname + '/uploads'));
+
+// app.use(upload.array());
 
 app.use('/products', productRoutes);
-app.post('/postfiles', productFiles);
-
-// const port = process.env.PORT || 5000;
 
 dbConfig(app);

@@ -6,9 +6,8 @@ import { Layout, Menu, Breadcrumb } from 'antd';
 import { Link } from 'react-router-dom';
 
 const { Header, Content, Footer } = Layout;
-type Props = { children: React.ReactNode; page: string };
 
-const LayoutView: React.FC<Props> = ({ children, page }) => {
+const LayoutView = ({ children, page }) => {
   return (
     <Layout>
       <Header
@@ -37,12 +36,11 @@ const LayoutView: React.FC<Props> = ({ children, page }) => {
           <Breadcrumb.Item>
             <Link to="/">Home</Link>
           </Breadcrumb.Item>
-          {page ? (
+          {page && (
             <Breadcrumb.Item>
-              <Link to={page === 'Add Product' ? '/add' : page}>{page}</Link>
+              {page === 'Add Product' && <Link to={'/add'}>{page}</Link>}
+              {page === 'View Products' && <Link to={'/view'}>{page}</Link>}
             </Breadcrumb.Item>
-          ) : (
-            <></>
           )}
         </Breadcrumb>
         <div
