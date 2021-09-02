@@ -2,11 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import './layout.css';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Breadcrumb, PageHeader, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import { Helmet } from 'react-helmet';
-
+import { ShoppingCartOutlined, LogoutOutlined } from '@ant-design/icons';
+import Cart from '../Cart/Cart';
+{
+  /* <ShoppingCartOutlined /> <LogoutOutlined />*/
+}
 // var result = _.camelCase('toto-ce héros')
 
 const { Header, Content, Footer } = Layout;
@@ -34,13 +38,31 @@ const LayoutView = ({ children, page, product }) => {
       // .replace(/ /g, '')
     );
   }
+  const routes = [
+    {
+      path: 'index',
+      breadcrumbName: 'First-level Menu',
+    },
+    {
+      path: 'first',
+      breadcrumbName: 'Second-level Menu',
+    },
+    {
+      path: 'second',
+      breadcrumbName: 'Third-level Menu',
+    },
+  ];
+
   return (
     <>
       {product ? (
         <Helmet>
           {' '}
           <title> {_.startCase(_.toLower(product.seoTitle))}</title>
-          <meta name="description" content={_.toLower(product.seoTitle)} />
+          <meta
+            name="description"
+            content={_.toLower(product.seoDescription)}
+          />
         </Helmet>
       ) : (
         <Helmet>
@@ -77,26 +99,45 @@ const LayoutView = ({ children, page, product }) => {
           className="site-layout"
           style={{ padding: '0 50px', marginTop: 64 }}
         >
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>
-              <Link to="/">Home</Link>
-            </Breadcrumb.Item>
-            {page && (
+          <PageHeader
+            title={page}
+            subTitle={product && _.startCase(_.toLower(product.seoTitle))}
+            avatar={{
+              src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4',
+            }}
+            extra={[
+              <Button key="1" type="primary" icon={<ShoppingCartOutlined />} />,
+              <Button
+                key="2"
+                type="primary"
+                danger
+                icon={<LogoutOutlined />}
+              />,
+            ]}
+
+            // breadcrumb={{ routes }}
+          >
+            <Breadcrumb style={{ margin: '16px 0' }}>
               <Breadcrumb.Item>
-                {page === 'Add Product' && <Link to={'/add'}>{page}</Link>}
-                {page === 'View Products' && <Link to={'/view'}>{page}</Link>}
+                <Link to="/">Home</Link>
               </Breadcrumb.Item>
-            )}
-            {product ? (
-              <Breadcrumb.Item>
-                <Link to={`/product/${product._id}`}>
-                  {_.startCase(_.toLower(product.title))}
-                </Link>
-              </Breadcrumb.Item>
-            ) : (
-              ''
-            )}
-          </Breadcrumb>
+              {page && (
+                <Breadcrumb.Item>
+                  {page === 'Add Product' && <Link to={'/add'}>{page}</Link>}
+                  {page === 'View Products' && <Link to={'/view'}>{page}</Link>}
+                </Breadcrumb.Item>
+              )}
+              {product ? (
+                <Breadcrumb.Item>
+                  <Link to={`/product/${product._id}`}>
+                    {_.startCase(_.toLower(product.title))}
+                  </Link>
+                </Breadcrumb.Item>
+              ) : (
+                ''
+              )}
+            </Breadcrumb>
+          </PageHeader>
           <div
             className="site-layout-background"
             style={{
@@ -111,6 +152,7 @@ const LayoutView = ({ children, page, product }) => {
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>Designed By Amit</Footer>
+        <Cart />
       </Layout>
     </>
   );
