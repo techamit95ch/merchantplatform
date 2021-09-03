@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import productRoutes from './routes/products.js';
+import authRoutes from './routes/auth.js';
 import dbConfig from './config/db.js';
 import multer from 'multer';
 
@@ -24,5 +25,6 @@ app.use(cors());
 app.use('/uploads', express.static('uploads'));
 
 app.use('/products', productRoutes);
+app.use('/auth', authRoutes);
 
 dbConfig(app);

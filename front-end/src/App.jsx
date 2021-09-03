@@ -10,6 +10,8 @@ import ViewProduct from './screens/viewProducts';
 import { getProducts } from './actions/products';
 import { useDispatch, useSelector } from 'react-redux';
 import Product from './screens/Product';
+import Login from './screens/Login';
+import Signin from './screens/Signin';
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +25,12 @@ function App() {
         <Route exact path="/">
           <HomeScreen />
         </Route>
+        <Route exact path="/login">
+          <Login />
+        </Route>
+        <Route exact path="/signin">
+          <Signin />
+        </Route>
         <Route exact path="/add">
           <AddProduct />
         </Route>
@@ -33,7 +41,7 @@ function App() {
           <ViewProduct />
         </Route>
         <Route exact path="/product/:productId">
-          <Product/>
+          <Product />
         </Route>
       </Switch>
     </Router>

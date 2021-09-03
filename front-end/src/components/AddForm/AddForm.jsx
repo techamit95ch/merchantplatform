@@ -8,6 +8,7 @@ import {
   Upload,
   message,
   Space,
+  Typography,
 } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import {
@@ -96,13 +97,15 @@ const AddForm = ({
               setDescription(e);
               checkEmpty();
             }}
-            style={{ height: 200, minHeight: 220, marginBottom: 30 }}
+            style={{
+              height: 120,
+
+              marginBottom: 30,
+            }}
           />
         </Form.Item>
         <Form.Item
-          label="Upload Media"
-          required
-          tooltip="This is a required field"
+          label={<Typography style={{ marginTop: 50 }}>Upload</Typography>}
         >
           <AvatarImage setMediaFile={setMediaFile} checkEmpty={checkEmpty} />
         </Form.Item>

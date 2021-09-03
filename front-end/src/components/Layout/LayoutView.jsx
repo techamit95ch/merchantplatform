@@ -16,6 +16,8 @@ import Cart from '../Cart/Cart';
 const { Header, Content, Footer } = Layout;
 
 const LayoutView = ({ children, page, product }) => {
+  const [cartVisible, setCartVisible] = React.useState(false);
+  React.useEffect(() => {}, [cartVisible]);
   function defaultSelectedKeys() {
     if (page === 'Add Product') return '1';
     if (page === 'View Products') return '2';
@@ -106,13 +108,22 @@ const LayoutView = ({ children, page, product }) => {
               src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4',
             }}
             extra={[
-              <Button key="1" type="primary" icon={<ShoppingCartOutlined />} />,
               <Button
-                key="2"
+                key="1"
                 type="primary"
-                danger
-                icon={<LogoutOutlined />}
+                icon={<ShoppingCartOutlined />}
+                onClick={() => {
+                  setCartVisible(true);
+                }}
               />,
+              <Link to="/login">
+                <Button
+                  key="2"
+                  type="primary"
+                  danger
+                  icon={<LogoutOutlined />}
+                />
+              </Link>,
             ]}
 
             // breadcrumb={{ routes }}
@@ -152,7 +163,7 @@ const LayoutView = ({ children, page, product }) => {
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>Designed By Amit</Footer>
-        <Cart />
+        <Cart cartVisible={cartVisible} setCartVisible={setCartVisible} />
       </Layout>
     </>
   );

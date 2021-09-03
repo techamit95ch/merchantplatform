@@ -52,11 +52,15 @@ function ProductComponent({ product }) {
                     xxl: 48,
                   }}
                   src={img}
+                  style={{
+                    marginLeft: 5,
+                  }}
                 />
                 <Tag
                   color={colors[random]}
                   style={{
                     marginTop: 10,
+                    marginLeft: 5,
                   }}
                 >
                   {product.variantDetails[index]}
