@@ -88,7 +88,7 @@ export const signIn = async (req, res) => {
           .then((doc) => {
             // console.log(doc);
             // console.log(randomString);
-            res.status(202).json({
+            res.status(200).json({
               success: true,
               data: { name: doc.name, img: doc.img, email: doc.email },
               randomString: randomString,
@@ -121,7 +121,7 @@ export const logIn = async (req, res) => {
       })
         .then((doc) => {
           console.log(doc);
-          res.status(203).json({
+          res.status(200).json({
             success: true,
             data: { name: doc.name, img: doc.img, email: doc.email },
             randomString: randomString,

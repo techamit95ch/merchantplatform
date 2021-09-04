@@ -24,8 +24,8 @@ function Login() {
 
         setTimeout(() => {
           setSpinning(0);
-          // history.push('/');
-          window.location.href="/";
+          history.push('/');
+          window.location.href = '/';
         }, 2500);
       } else {
         setSpinning(3);

@@ -15,10 +15,13 @@ import Login from './screens/Login';
 import Signin from './screens/Signin';
 import { isLoggedIn } from './actions/auth';
 import { getAllCart } from './actions/cart';
-
+import { Result, Button, Progress } from 'antd';
+import { SmileOutlined } from '@ant-design/icons';
 function App() {
   const dispatch = useDispatch();
   const [ready, setReady] = useState(false);
+  const user = useSelector((state) => state.auth);
+
   useEffect(() => {
     dispatch(getProducts());
     dispatch(isLoggedIn());
@@ -26,14 +29,23 @@ function App() {
 
     setTimeout(() => {
       // await setSpinning(0);
+      // if (user.ready === true) {
       setReady(true);
-    }, 200);
-  }, [dispatch]);
-  const user = useSelector((state) => state.auth);
+      // }
+    }, 2000);
+  }, [dispatch, user]);
   console.log(user);
 
   if (!ready) {
-    return <></>;
+    return (
+      <>
+        <Result
+          icon={<SmileOutlined />}
+          title="Great, we have done all the operations!"
+          extra={<Progress type="circle" percent={75} />}
+        />
+      </>
+    );
   } else {
     if (user.success === false) {
       return (

@@ -9,6 +9,7 @@
     "antd": "^4.16.13",
     "antd-img-crop": "^3.16.0",
     "axios": "^0.21.1",
+    "framer-motion": "^4.1.17",
     "html-react-parser": "^1.2.8",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",

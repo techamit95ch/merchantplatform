@@ -113,7 +113,9 @@ const LayoutView = ({ children, page, product }) => {
           style={{ padding: '0 50px', marginTop: 64 }}
         >
           <PageHeader
-            title={page}
+            title={
+              page ? page : _.startCase(_.toLower(localStorage.getItem('name')))
+            }
             subTitle={product && _.startCase(_.toLower(product.seoTitle))}
             avatar={{
               src: localStorage.getItem('img'),

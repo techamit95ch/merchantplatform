@@ -52,7 +52,7 @@ function LoginForm({ handleSubmit, user, setUser }) {
             }}
           />
         </Form.Item>
-        <Form.Item>
+        {/* <Form.Item>
           <Form.Item name="remember" valuePropName="checked" noStyle>
             <Checkbox style={{ marginLeft: 10 }}>Remember me</Checkbox>
           </Form.Item>
@@ -60,7 +60,7 @@ function LoginForm({ handleSubmit, user, setUser }) {
           <Link className="login-form-forgot" to="#">
             Forgot password
           </Link>
-        </Form.Item>
+        </Form.Item> */}
 
         <Form.Item>
           <Button
