@@ -9,8 +9,11 @@ import {
   DeleteFilled,
 } from '@ant-design/icons';
 import _ from 'lodash';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Cart({ cartVisible, setCartVisible }) {
+  const carts = useSelector((state) => state.cart);
+
   const data = [];
   return (
     <Drawer
@@ -23,15 +26,15 @@ function Cart({ cartVisible, setCartVisible }) {
     >
       <List
         className="demo-loadmore-list"
-        loading={data.length === 0}
+        loading={carts.length === 0}
         itemLayout="horizontal"
-        dataSource={data}
+        dataSource={carts}
         renderItem={(item) => (
           <List.Item actions={[<DeleteFilled style={{ color: 'red' }} />]}>
             <List.Item.Meta
-              avatar={<Avatar src={item.mediaFile} />}
-              title={_.startCase(_.toLower(item.title))}
-              description={item.seoDescription}
+              avatar={<Avatar src={item.product.mediaFile} />}
+              title={_.startCase(_.toLower(item.product.title))}
+              description={item.product.seoDescription}
             />
           </List.Item>
         )}

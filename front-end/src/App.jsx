@@ -14,6 +14,7 @@ import Product from './screens/Product';
 import Login from './screens/Login';
 import Signin from './screens/Signin';
 import { isLoggedIn } from './actions/auth';
+import { getAllCart } from './actions/cart';
 
 function App() {
   const dispatch = useDispatch();
@@ -21,6 +22,8 @@ function App() {
   useEffect(() => {
     dispatch(getProducts());
     dispatch(isLoggedIn());
+    dispatch(getAllCart());
+
     setTimeout(() => {
       // await setSpinning(0);
       setReady(true);

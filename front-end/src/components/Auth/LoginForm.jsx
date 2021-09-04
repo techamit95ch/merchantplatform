@@ -32,6 +32,9 @@ function LoginForm({ handleSubmit, user, setUser }) {
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
             placeholder="Username"
+            onChange={(e) => {
+              setUser({ ...user, email: e.target.value });
+            }}
           />
         </Form.Item>
         <Form.Item
@@ -44,13 +47,9 @@ function LoginForm({ handleSubmit, user, setUser }) {
             prefix={<LockOutlined className="site-form-item-icon" />}
             name="password"
             label="Password"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your password!',
-              },
-            ]}
-            hasFeedback
+            onChange={(e) => {
+              setUser({ ...user, password: e.target.value });
+            }}
           />
         </Form.Item>
         <Form.Item>

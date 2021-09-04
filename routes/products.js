@@ -10,8 +10,5 @@ const cpUpload = upload.fields([{ name: 'mediaFile' }, { name: 'variantImg' }]);
 router.get('/', getProducts);
 // router.post('/', cpUpload, createProduct);
 router.post('/', createProduct);
-router.post('/order', () => {});
-router.post('/cart', () => {});
-router.get('/cart', () => {});
 
 export default router;
