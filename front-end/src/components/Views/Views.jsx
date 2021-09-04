@@ -14,7 +14,7 @@ function Views({ data }) {
       {data.map((item) => (
         <Col xs={24} sm={24} md={12} lg={12} xl={8}>
           <Card
-            // style={{ width: 390, marginTop: 0 }}
+            style={{ maxWidth: 420, minWidth: 250 }}
             bordered={false}
             hoverable
             cover={

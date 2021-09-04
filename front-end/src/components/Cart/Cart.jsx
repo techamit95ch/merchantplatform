@@ -45,6 +45,7 @@ function Cart({ cartVisible, setCartVisible }) {
               onClick={() => {
                 dispatch(orderAllCart());
               }}
+              loading={carts.length === 0}
             >
               Order
             </Button>
