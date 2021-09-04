@@ -47,8 +47,15 @@ export const createProduct = async (req, res) => {
         seoDescription: seoDescription,
       });
       try {
-        await newProduct.save();
-        res.status(201).json({ success: true, data: newProduct });
+        await newProduct
+          .save()
+          .then((doc) => {
+            res.status(201).json({ success: true, data: doc });
+          })
+          .catch((err) => {
+            res.status(400).json({ success: false, message: err.message });
+          });
+        // res.status(201).json({ success: true, data: newProduct });
         // console.log(newProduct);
       } catch (err) {
         res.status(400).json({ success: false, message: err.message });

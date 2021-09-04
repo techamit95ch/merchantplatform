@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import './layout.css';
 import { Layout, Menu, Breadcrumb, PageHeader, Button } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import _ from 'lodash';
 import { Helmet } from 'react-helmet';
 import { ShoppingCartOutlined, LogoutOutlined } from '@ant-design/icons';
+
 import Cart from '../Cart/Cart';
+import { useDispatch } from 'react-redux';
+import { logOut } from '../../actions/auth';
 {
   /* <ShoppingCartOutlined /> <LogoutOutlined />*/
 }
@@ -16,6 +19,8 @@ import Cart from '../Cart/Cart';
 const { Header, Content, Footer } = Layout;
 
 const LayoutView = ({ children, page, product }) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [cartVisible, setCartVisible] = React.useState(false);
   React.useEffect(() => {}, [cartVisible]);
   function defaultSelectedKeys() {
@@ -116,14 +121,18 @@ const LayoutView = ({ children, page, product }) => {
                   setCartVisible(true);
                 }}
               />,
-              <Link to="/login">
-                <Button
-                  key="2"
-                  type="primary"
-                  danger
-                  icon={<LogoutOutlined />}
-                />
-              </Link>,
+              // <Link to="/login">
+              <Button
+                key="2"
+                type="primary"
+                onClick={() => {
+                  dispatch(logOut());
+                  history.push('/');
+                }}
+                danger
+                icon={<LogoutOutlined />}
+              />,
+              // </Link>,
             ]}
 
             // breadcrumb={{ routes }}

@@ -17,6 +17,8 @@ const authSchema = mongoose.Schema({
     type: String,
     trim: true,
   },
+  isLoggedIn: Boolean,
+  randomString: String,
 
   createdAt: {
     type: Date,

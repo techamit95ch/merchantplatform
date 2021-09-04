@@ -49,11 +49,9 @@ const tailFormItemLayout = {
     },
   },
 };
-function SignFrom() {
+function SignFrom({ handleSignIn, user, setUser }) {
   const [form] = Form.useForm();
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values);
-  };
+
   const [fileList, setFileList] = useState('');
   const [state, setState] = useState({
     previewVisible: false,
@@ -69,6 +67,7 @@ function SignFrom() {
       message.success(`${newFileList.file.name} file uploaded successfully`);
       //   setMediaFile(newFileList.file.originFileObj);
       setFileList(newFileList.file);
+      setUser({ ...user, img: newFileList.file.originFileObj });
     } else if (newFileList.file.status === 'error') {
       message.error(`${newFileList.file.name} file upload failed.`);
     }
@@ -140,7 +139,7 @@ function SignFrom() {
         {...formItemLayout}
         form={form}
         name="register"
-        onFinish={onFinish}
+        onFinish={handleSignIn}
         scrollToFirstError
       >
         <Form.Item
@@ -155,18 +154,13 @@ function SignFrom() {
             },
           ]}
         >
-          <Input />
+          <Input
+            onChange={(e) => {
+              setUser({ ...user, name: e.target.value });
+            }}
+          />
         </Form.Item>
-        <Form.Item
-          name="avatar"
-          label="Avatar"
-          rules={[
-            {
-              required: true,
-              message: 'Please upload an avatar!',
-            },
-          ]}
-        >
+        <Form.Item name="avatar" label="Avatar">
           <ImgCrop
             rotate
             beforeCrop={(file) => {
@@ -225,7 +219,11 @@ function SignFrom() {
             },
           ]}
         >
-          <Input />
+          <Input
+            onChange={(e) => {
+              setUser({ ...user, email: e.target.value });
+            }}
+          />
         </Form.Item>
         <Form.Item
           name="password"
@@ -238,7 +236,11 @@ function SignFrom() {
           ]}
           hasFeedback
         >
-          <Input.Password />
+          <Input.Password
+            onChange={(e) => {
+              setUser({ ...user, password: e.target.value });
+            }}
+          />
         </Form.Item>
 
         <Form.Item
@@ -264,7 +266,11 @@ function SignFrom() {
             }),
           ]}
         >
-          <Input.Password />
+          <Input.Password
+            onChange={(e) => {
+              setUser({ ...user, confirmPassword: e.target.value });
+            }}
+          />
         </Form.Item>
         <Form.Item
           name="agreement"

@@ -1,13 +1,9 @@
 import express from 'express';
-import { signIn, logIn } from '../controller/auth.js';
-import upload from '../middleware/upload.js';
-// const upload = multer({ dest: 'uploads/' });
+import { signIn, logIn, isLoggedIn, logout } from '../controller/auth.js';
 const router = express.Router();
-
-// const cpUpload = upload.array('variantImg', 10)
-
-router.get('/', logIn);
-// router.post('/', cpUpload, createProduct);
-router.post('/', signIn);
+router.post('/login', logIn);
+router.post('/signin', signIn);
+router.post('/isLoggedIn', isLoggedIn);
+router.post('/logout', logout);
 
 export default router;

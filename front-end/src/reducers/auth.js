@@ -3,10 +3,18 @@ export default (auth = { success: false, data: {}, message: '' }, action) => {
   switch (action.type) {
     case 'LOGIN':
       auth.data = action.payload;
+      auth.success = action.payload.success;
+
       return auth;
 
     case 'SIGNIN':
       auth.data = action.payload.data;
+      auth.success = action.payload.success;
+      return auth;
+    case 'IS_SIGNIN':
+      auth.success = action.payload.success;
+      return auth;
+    case 'LOGOUT':
       auth.success = action.payload.success;
       return auth;
     case 'AUTH_ERROR':
