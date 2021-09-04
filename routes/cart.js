@@ -4,10 +4,11 @@ import {
   deleteCart,
   getCarts,
   createCart,
-} from '../controller/cart.js';
+} from '../controller/carts.js';
 
 const router = express.Router();
-router.post('/getcart', getCarts);
+router.post('/getCarts', getCarts);
 router.post('/', createCart);
 router.post('/order', closeCart);
 router.delete('/:id', deleteCart);
+export default router;

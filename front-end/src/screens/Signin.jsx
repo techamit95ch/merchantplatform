@@ -38,7 +38,9 @@ function Signin() {
 
         await setTimeout(async () => {
           await setSpinning(0);
-          await history.push('/');
+          // await history.push('/');
+          window.location.href="/";
+
         }, 2500);
       } else {
         await setSpinning(3);

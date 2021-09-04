@@ -14,12 +14,16 @@ import {
 import { Helmet } from 'react-helmet';
 import _ from 'lodash';
 import HtmlParse from 'html-react-parser';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from './../../actions/cart';
 
 const { Meta } = Card;
 const { Title, Paragraph, Text, Link } = Typography;
 const colors = ['#f50', '#2db7f5', '#87d068', '#108ee9'];
 
 function ProductComponent({ product }) {
+  const dispatch = useDispatch();
+
   return (
     <Row gutter={[48, 38]} justify="center">
       <Col xs={24} sm={24} md={12} lg={12} xl={12}>
@@ -85,6 +89,9 @@ function ProductComponent({ product }) {
           block
           style={{
             marginTop: 30,
+          }}
+          onClick={() => {
+            dispatch(addToCart(product));
           }}
         >
           Add To Cart

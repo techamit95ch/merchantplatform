@@ -10,7 +10,7 @@ const { Header, Content, Footer } = Layout;
 
 function Login() {
   const history = useHistory();
-  const [spinning, setSpinning] = React.useState(0);
+  const [spinning, setSpinning] = useState(0);
 
   const auth = useSelector((state) => state.auth);
 
@@ -18,18 +18,19 @@ function Login() {
   const [user, setUser] = useState({ email: '', password: '' });
   const handleSubmit = async () => {
     await dispatch(loginPost(user));
-    await setTimeout(async () => {
+    setTimeout(() => {
       if (auth.success) {
-        await setSpinning(2);
+        setSpinning(2);
 
-        await setTimeout(async () => {
-          await setSpinning(0);
-          await history.push('/');
+        setTimeout(() => {
+          setSpinning(0);
+          // history.push('/');
+          window.location.href="/";
         }, 2500);
       } else {
-        await setSpinning(3);
-        await setTimeout(async () => {
-          await setSpinning(0);
+        setSpinning(3);
+        setTimeout(() => {
+          setSpinning(0);
         }, 2500);
       }
     }, 2000);

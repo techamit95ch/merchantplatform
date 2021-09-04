@@ -108,9 +108,9 @@ export const signIn = async (req, res) => {
 };
 export const logIn = async (req, res) => {
   const random = Math.floor(Math.random() * 2048) + 1024;
-  const randomString = encrypt(random);
-  const { email, password } = req.body;
 
+  const { email, password } = req.body;
+  const randomString = encrypt(email + random);
   const user = await Auth.findOne({ email: email });
   if (user) {
     const validPassword = await bcrypt.compare(password, user.password);
@@ -166,7 +166,7 @@ export const logout = async (req, res) => {
   // const random = decrypt(req.body.randomString);
 
   const user = await Auth.findOne({ email: email });
-  console.log(email);
+  console.log(req.body);
   const logout = await Auth.findByIdAndUpdate(user._id, {
     isLoggedIn: true,
   })

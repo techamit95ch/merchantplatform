@@ -41,18 +41,22 @@ export const deleteCart = async (req, res) => {
 };
 export const closeCart = async (req, res) => {
   const { email } = req.body;
+  console.log(email);
+  try {
+    await Cart.updateMany(
+      { email: email, status: true },
+      { $set: { status: false } },
+      function (err, docs) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.status(200).json(docs);
 
-  await Cart.updateMany(
-    { email: email },
-    { status: false },
-    function (err, docs) {
-      if (err) {
-        console.log(err);
-      } else {
-        res.status(200).json(docs);
-
-        console.log('Updated Docs : ', docs);
+          console.log('Updated Docs : ', docs);
+        }
       }
-    }
-  );
+    );
+  } catch (err) {
+    console.log(err);
+  }
 };

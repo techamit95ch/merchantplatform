@@ -2,14 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import './layout.css';
-import { Layout, Menu, Breadcrumb, PageHeader, Button } from 'antd';
+import { Layout, Menu, Breadcrumb, PageHeader, Button, Badge } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import _ from 'lodash';
 import { Helmet } from 'react-helmet';
-import { ShoppingCartOutlined, LogoutOutlined } from '@ant-design/icons';
+import {
+  ShoppingCartOutlined,
+  LogoutOutlined,
+  ClockCircleOutlined,
+} from '@ant-design/icons';
 
 import Cart from '../Cart/Cart';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from '../../actions/auth';
 {
   /* <ShoppingCartOutlined /> <LogoutOutlined />*/
@@ -19,6 +23,8 @@ import { logOut } from '../../actions/auth';
 const { Header, Content, Footer } = Layout;
 
 const LayoutView = ({ children, page, product }) => {
+  const carts = useSelector((state) => state.cart);
+
   const dispatch = useDispatch();
   const history = useHistory();
   const [cartVisible, setCartVisible] = React.useState(false);
@@ -110,17 +116,32 @@ const LayoutView = ({ children, page, product }) => {
             title={page}
             subTitle={product && _.startCase(_.toLower(product.seoTitle))}
             avatar={{
-              src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4',
+              src: localStorage.getItem('img'),
             }}
             extra={[
-              <Button
-                key="1"
-                type="primary"
-                icon={<ShoppingCartOutlined />}
-                onClick={() => {
-                  setCartVisible(true);
-                }}
-              />,
+              <>
+                <Badge
+                  count={
+                    carts.length ? (
+                      carts.length
+                    ) : (
+                      <ClockCircleOutlined style={{ color: '#f5222d' }} />
+                    )
+                  }
+                  onClick={() => {
+                    setCartVisible(true);
+                  }}
+                >
+                  <Button
+                    key="1"
+                    type="primary"
+                    icon={<ShoppingCartOutlined />}
+                    onClick={() => {
+                      setCartVisible(true);
+                    }}
+                  />{' '}
+                </Badge>
+              </>,
               // <Link to="/login">
               <Button
                 key="2"

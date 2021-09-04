@@ -5,9 +5,9 @@ export default (cart = [], action) => {
       return action.payload;
 
     case 'ADD_TO_CART':
-      return [...cart, action.payload.data];
+      return [...cart, action.payload];
     case 'REMOVE_FROM_CART':
-      return cart.filter((item) => item._id !== action.payload._id);
+      return cart.filter((item) => item._id !== action.payload);
     case 'ORDERED_ALL':
       return [];
     default:

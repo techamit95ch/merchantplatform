@@ -102,6 +102,7 @@ export const isLoggedIn = () => async (dispatch) => {
   }
 };
 export const logOut = () => async (dispatch) => {
+  console.log(localStorage);
   const { data } = await api.logOutAuth({
     email: localStorage.getItem('email'),
   });
@@ -112,5 +113,6 @@ export const logOut = () => async (dispatch) => {
       type: 'LOGOUT',
       payload: { success: false },
     });
+    window.location.href="/"
   }
 };
