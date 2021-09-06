@@ -34,7 +34,7 @@ const history= useHistory();
           <Card
             style={{
               maxWidth: 500,
-              minWidth: 500,
+              minWidth: 250,
               maxHeight: 400,
               minHeight: 400,
             }}
@@ -62,7 +62,7 @@ const history= useHistory();
           <Card
             style={{
               maxWidth: 500,
-              minWidth: 500,
+              minWidth: 250,
               maxHeight: 400,
               minHeight: 400,
             }}
