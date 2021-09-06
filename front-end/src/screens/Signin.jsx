@@ -37,6 +37,13 @@ function Signin() {
     await dispatch(signInPost(formData));
     await setTimeout(async () => {
       if (auth.success) {
+        setUser({
+          name: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+          img: null,
+        });
         await setSpinning(2);
         message.success('Your data is submitted Successfully!');
         await setTimeout(async () => {

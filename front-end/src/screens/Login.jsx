@@ -61,6 +61,7 @@ function Login() {
           alignItems: 'center',
           display: 'flex',
           backgroundColor: 'white',
+          
         }}
       >
         {spinning === 1 && (
