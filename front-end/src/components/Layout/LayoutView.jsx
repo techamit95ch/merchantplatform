@@ -15,6 +15,7 @@ import {
 import Cart from '../Cart/Cart';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from '../../actions/auth';
+
 {
   /* <ShoppingCartOutlined /> <LogoutOutlined />*/
 }
@@ -65,7 +66,7 @@ const LayoutView = ({ children, page, product }) => {
       breadcrumbName: 'Third-level Menu',
     },
   ];
-
+  
   return (
     <>
       {product ? (

@@ -41,8 +41,8 @@ function App() {
       <>
         <Result
           icon={<SmileOutlined />}
-          title="Great, we have done all the operations!"
-          extra={<Progress type="circle" percent={75} />}
+          title="Great, we are there!"
+          
         />
       </>
     );

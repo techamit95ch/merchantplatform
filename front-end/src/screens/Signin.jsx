@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Menu, Breadcrumb, PageHeader, Button, Card } from 'antd';
+import { Layout, Menu, Breadcrumb, PageHeader, Button, Card ,message} from 'antd';
 import SignFrom from '../components/Auth/SignFrom';
 import { signInPost } from '../actions/auth';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,6 +11,7 @@ const { Header, Content, Footer } = Layout;
 function Signin() {
   const history = useHistory();
   const [spinning, setSpinning] = React.useState(0);
+  const [error, setError]= React.useState('');
 
   const auth = useSelector((state) => state.auth);
 
@@ -22,6 +23,8 @@ function Signin() {
     confirmPassword: '',
     img: null,
   });
+  React.useEffect(() =>{}, [user])
+
   const handleSignIn = async () => {
     setSpinning(1);
 
@@ -35,7 +38,7 @@ function Signin() {
     await setTimeout(async () => {
       if (auth.success) {
         await setSpinning(2);
-
+        message.success('Your data is submitted Successfully!');
         await setTimeout(async () => {
           await setSpinning(0);
           // await history.push('/');
@@ -43,7 +46,9 @@ function Signin() {
 
         }, 2500);
       } else {
-        await setSpinning(3);
+        // setError(JSON.stringify(auth.message));
+        message.error(JSON.stringify(auth.message));
+        // await setSpinning(2);
         await setTimeout(async () => {
           await setSpinning(0);
         }, 2500);
@@ -89,23 +94,14 @@ function Signin() {
         {spinning === 2 && (
           <>
             <Alert
-              message="Success"
-              description="Your data is submitted Successfully!"
-              type="success"
+              message={error?'Error':'Success'}
+              description={error?auth.message:"Your data is submitted Successfully!"}
+              type={error?'error':'success'}
               showIcon
             />
           </>
         )}
-        {spinning === 3 && (
-          <>
-            <Alert
-              message="Error"
-              description={` Your data is not submitted Successfully! \n ${auth.message}`}
-              type="Error"
-              showIcon
-            />
-          </>
-        )}
+        
       </Content>
     </Layout>
   );

@@ -19,7 +19,7 @@ export const loginPost = (post) => async (dispatch) => {
       type: 'AUTH_ERROR',
       payload: { success: false, message: error.message },
     });
-    console.log(error);
+    console.log(error.message);
   }
 };
 export const signInPost = (post) => async (dispatch) => {

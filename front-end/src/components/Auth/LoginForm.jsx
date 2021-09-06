@@ -7,6 +7,7 @@ function LoginForm({ handleSubmit, user, setUser }) {
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
   };
+  console.log(user);
   return (
     <Card title="Login" bordered={false} style={{ width: 600 }}>
       <Form
@@ -32,6 +33,7 @@ function LoginForm({ handleSubmit, user, setUser }) {
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
             placeholder="Username"
+            defaultValue={user.email}
             onChange={(e) => {
               setUser({ ...user, email: e.target.value });
             }}
@@ -47,6 +49,8 @@ function LoginForm({ handleSubmit, user, setUser }) {
             prefix={<LockOutlined className="site-form-item-icon" />}
             name="password"
             label="Password"
+            defaultValue={user.password}
+
             onChange={(e) => {
               setUser({ ...user, password: e.target.value });
             }}

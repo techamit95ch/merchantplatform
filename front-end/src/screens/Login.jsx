@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import LoginForm from '../components/Auth/LoginForm';
-import { Layout, Menu, Breadcrumb, PageHeader, Button } from 'antd';
+import { Layout, message } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Spin, Alert } from 'antd';
@@ -11,29 +11,36 @@ const { Header, Content, Footer } = Layout;
 function Login() {
   const history = useHistory();
   const [spinning, setSpinning] = useState(0);
-
+  const [error, setError]= useState('');
   const auth = useSelector((state) => state.auth);
-
   const dispatch = useDispatch();
   const [user, setUser] = useState({ email: '', password: '' });
+  React.useEffect(() =>{}, [user])
   const handleSubmit = async () => {
+    setSpinning(1);
     await dispatch(loginPost(user));
     setTimeout(() => {
-      if (auth.success) {
+      if (auth.success===true) {
         setSpinning(2);
-
+        message.success('Login Successfully!');
         setTimeout(() => {
           setSpinning(0);
+          setUser({ email: '', password: '' });
           history.push('/');
           window.location.href = '/';
-        }, 2500);
+        }, 1000);
       } else {
-        setSpinning(3);
+        // setError(JSON.stringify(auth.message));
+        // setSpinning(2);
+        message.error(JSON.stringify(auth.message));
         setTimeout(() => {
           setSpinning(0);
-        }, 2500);
+        }, 1000);
+        console.log(auth);
+        // setError(JSON.stringify(auth.message));
+
       }
-    }, 2000);
+    }, 1000);
   };
   return (
     <Layout>
@@ -71,23 +78,14 @@ function Login() {
         {spinning === 2 && (
           <>
             <Alert
-              message="Success"
-              description="Your data is submitted Successfully!"
-              type="success"
+              message={error?'Error':'Success'}
+              description={error?auth.message:"Login Successfully!"}
+              type={error?'error':'success'}
               showIcon
             />
           </>
         )}
-        {spinning === 3 && (
-          <>
-            <Alert
-              message="Error"
-              description={` Your data is not submitted Successfully! \n ${auth.message}`}
-              type="Error"
-              showIcon
-            />
-          </>
-        )}
+        
       </Content>
     </Layout>
   );

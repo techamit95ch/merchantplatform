@@ -52,12 +52,13 @@ const tailFormItemLayout = {
 function SignFrom({ handleSignIn, user, setUser }) {
   const [form] = Form.useForm();
 
-  const [fileList, setFileList] = useState('');
+  const [fileList, setFileList] = useState(null);
   const [state, setState] = useState({
     previewVisible: false,
     previewImage: '',
     previewTitle: '',
   });
+  
   const onChange = (newFileList) => {
     // checkEmpty();
     if (newFileList.file.status !== 'uploading') {
@@ -131,6 +132,8 @@ function SignFrom({ handleSignIn, user, setUser }) {
       strokeWidth: 3,
       format: (percent) => `${parseFloat(percent.toFixed(2))}%`,
     },
+    
+    
     // action: 'localhost:3000/postfiles/',
   };
   return (
@@ -155,6 +158,7 @@ function SignFrom({ handleSignIn, user, setUser }) {
           ]}
         >
           <Input
+          defaultValue={user.name}
             onChange={(e) => {
               setUser({ ...user, name: e.target.value });
             }}
@@ -184,6 +188,7 @@ function SignFrom({ handleSignIn, user, setUser }) {
               onChange={onChange}
               onPreview={onPreview}
               beforeUpload={onBeforeLoad}
+              
               {...props}
             >
               <UploadOutlined />
@@ -220,6 +225,8 @@ function SignFrom({ handleSignIn, user, setUser }) {
           ]}
         >
           <Input
+                      defaultValue={user.email}
+
             onChange={(e) => {
               setUser({ ...user, email: e.target.value });
             }}
@@ -237,6 +244,8 @@ function SignFrom({ handleSignIn, user, setUser }) {
           hasFeedback
         >
           <Input.Password
+                      defaultValue={user.password}
+
             onChange={(e) => {
               setUser({ ...user, password: e.target.value });
             }}
@@ -267,6 +276,8 @@ function SignFrom({ handleSignIn, user, setUser }) {
           ]}
         >
           <Input.Password
+                                defaultValue={user.confirmPassword}
+
             onChange={(e) => {
               setUser({ ...user, confirmPassword: e.target.value });
             }}

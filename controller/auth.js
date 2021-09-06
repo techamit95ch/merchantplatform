@@ -32,8 +32,10 @@ export const signIn = async (req, res) => {
       if (err instanceof multer.MulterError) {
         res.status(400).json({ success: false, message: err.code });
       } else if (err) {
+        console.log(err);
         res.status(500).json({ success: false, message: err.message });
       }
+      console.log(req)
       const { name, email, password } = req.body;
       const img = url + '/uploads/' + req.file.filename;
       const random = Math.floor(Math.random() * 2048) + 1024;
@@ -60,12 +62,12 @@ export const signIn = async (req, res) => {
             })
             .catch((err) => {
               console.error(err);
-              res.status(400).json({ success: false, message: err.message });
+              res.status(200).json({ success: false, message: err.message });
 
               // res.status(400);
             });
         } else {
-          res.status(401).json({ success: false, message: 'Invalid Password' });
+          res.status(200).json({ success: false, message: 'Invalid Password' });
 
           // res.status(400).json({ error: 'Invalid Password' });
         }
@@ -95,7 +97,7 @@ export const signIn = async (req, res) => {
             });
           })
           .catch((err) => {
-            res.status(400).json({ success: false, message: err.message });
+            res.status(200).json({ success: false, message: err.message });
           });
       }
 
@@ -133,8 +135,10 @@ export const logIn = async (req, res) => {
           res.status(400);
         });
     } else {
-      res.status(400).json({ success: false, message: 'Invalid Password' });
+      res.status(200).json({ success: false, message: 'Invalid Password' });
     }
+  }else {
+    res.status(200).json({ success: false, message: 'Email Does Not Exists' });
   }
 };
 export const isLoggedIn = async (req, res) => {
