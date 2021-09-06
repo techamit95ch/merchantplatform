@@ -38,13 +38,21 @@ function App() {
 
   if (!ready) {
     return (
-      <>
+      <div
+            className="site-layout-background"
+            style={{
+              padding: 24,
+              minHeight: 470,
+              justifyContent: "center",
+              alignItems: "center",
+              display: "flex",
+            }}>
         <Result
           icon={<SmileOutlined />}
-          title="Great, we are there!"
+          title="Great, we are almost there!"
           
         />
-      </>
+      </div>
     );
   } else {
     if (user.success === false) {

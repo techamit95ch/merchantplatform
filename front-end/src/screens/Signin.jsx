@@ -76,14 +76,19 @@ function Signin() {
       <Content
         className="site-layout"
         style={{
-          padding: '0 50px',
-          marginTop: 64,
-          justifyContent: 'center',
-          alignItems: 'center',
-          display: 'flex',
+         
           backgroundColor: 'white',
         }}
       >
+      <div
+            className="site-layout-background"
+            style={{
+              padding: 24,
+              minHeight: 470,
+              justifyContent: "center",
+              alignItems: "center",
+              display: "flex",
+            }}>
         {spinning === 1 && (
           <>
             <Spin tip="Submitting..." delay={300} size="large"></Spin>
@@ -108,7 +113,8 @@ function Signin() {
             />
           </>
         )}
-        
+        </div>
+
       </Content>
     </Layout>
   );

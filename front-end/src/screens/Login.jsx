@@ -64,6 +64,15 @@ function Login() {
           
         }}
       >
+      <div
+            className="site-layout-background"
+            style={{
+              padding: 24,
+              minHeight: 470,
+              justifyContent: "center",
+              alignItems: "center",
+              display: "flex",
+            }}>
         {spinning === 1 && (
           <>
             <Spin tip="Submitting..." delay={300} size="large"></Spin>
@@ -86,7 +95,7 @@ function Login() {
             />
           </>
         )}
-        
+        </div>
       </Content>
     </Layout>
   );
